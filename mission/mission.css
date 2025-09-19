@@ -6,6 +6,8 @@ body {
     margin-bottom: 50px;
     margin-left: 460px;
     margin-right: 460px;
+    background-color: white;
+    color: black;
 }
 .content {
     max-width: 600px;
@@ -31,7 +33,6 @@ h2 {
 }
 p {
     text-align: left;
-    padding: 0% 0%;
     margin-top: 20px;
 }
 .details {
@@ -53,15 +54,16 @@ footer img {
     margin-right: auto;
     width: 150px;
 }
-.dark select {
+body.dark select {
     color : white;
     background: #333;
+    border: 1px solid #aaa;
 }
-.dark body {
+body.dark {
     background-color: #333;
     color: white;
     border: 1.5px solid white;
 }
-.dark h2 {
+body.dark h2 {
     color: #214491;
 }

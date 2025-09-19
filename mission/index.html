@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BYU-Idaho Mission Statment</title>
     <link rel="stylesheet" href="mission.css">
-    <link rel="javascript" href="mission.js">
+    <script defer src="mission.js"></script>
 </head>
 <body>
     <div class="content">
         <header class ="title">
-            <select>
+            <select id="theme-selector" name="theme-selector" aria-label="Select Theme">
                 <option value="light">Light Mode</option>
                 <option value="dark">Dark Mode</option>
             </select>            
@@ -31,7 +31,7 @@
             </ol>
         </main>
         <footer>
-            <img src="byui-logo_blue.jpg" alt="BYU-I Logo">
+            <img id="logo" src="byui-logo_blue.jpg" alt="BYU-I Logo">
         </footer>
     </div>    
 </body>
