@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Card Payment Form</title>
+    <link rel="stylesheet" href="credit-card.css">
+    <script defer src="credit-card.js"></script>
+    <link rel="icon" type="image/png" href="credit-card.png">
+</head>
+<body>
+    <form class="card-form">
+        <div class="card-front">
+            <div class="total">$199</div>
+            
+            <!-- Placeholder for the card icon -->
+            <div class="card-icon"></div>
+
+            <div class="field-group card-number-group">
+                <label for="cardnumber">Card Number</label>
+                <input type="text" id="cardnumber" name="cardnumber" placeholder="1234 5678 9101 1020" required minlength="16" maxlength="19" />
+            </div>
+
+            <div class="field-group card-holder-group">
+                <label for="cardholder">Card Holder</label>
+                <input type="text" id="cardholder" name="cardholder" placeholder="John Doe" required />
+            </div>
+
+            <div class="field-group expiration-group">
+                <label for="expiry-mm">Expiration</label>
+                <div class="expiry-inputs">
+                    <input type="text" id="expiry-mm" name="expiry-mm" placeholder="MM" required pattern="\d{2}" maxlength="2" />
+                    <input type="text" id="expiry-yy" name="expiry-yy" placeholder="YY" required pattern="\d{2}" maxlength="2" />
+                </div>
+            </div>
+        </div> 
+        
+        <div class="card-back">
+            <!-- Dark Bar (Magnetic Strip) -->
+            <div class="dark-bar"></div>
+
+            <div class="field-group cvc-group">
+                <label for="cvc">CVC/CVV</label>
+                <input type="text" id="cvc" name="cvc" placeholder="XXX" required minlength="3" maxlength="4" />
+            </div>
+
+            <div class="field-group zip-group">
+                <label for="zipcode">Billing Zip Code</label>
+                <input type="text" id="zipcode" name="zipcode" placeholder="12345" required pattern="\d{5}" />
+            </div>
+        </div>
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

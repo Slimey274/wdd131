@@ -1,0 +1,225 @@
+/* Base Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f4f4f4;
+    padding: 4rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+/* ===== Main Grid (.card-form) ===== */
+.card-form {
+    /* Main Grid Setup for overlap and positioning */
+    display: grid;
+    gap: 1.5rem;
+    
+    /* Define 3 columns for overlap: Card front takes 1st & 2nd, Card Back overlaps into 3rd */
+    grid-template-columns: 1fr 1fr 1fr; 
+    
+    /* Assign names to grid areas */
+    grid-template-areas: 
+        "card-front card-front card-back" 
+        "card-front card-front card-back"
+        "submit submit submit";
+    
+    width: min(95%, 900px); /* Max width for better desktop appearance */
+    margin: 0 auto;
+}
+/* ===== Card Front (Internal Grid and Main Grid Placement) ===== */
+.card-front {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    padding: 1.5rem; /* Padding for internal space hint */
+    
+    /* Main Grid Placement */
+    grid-area: card-front;
+    z-index: 2; 
+    width: 100%;
+    /* Internal Grid Setup (3 columns for fields) */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem 1rem; /* row-gap column-gap */
+}
+/* Top Bar Content */
+.total {
+    grid-column: 1 / 2; /* Position in the first column */
+    grid-row: 1 / 2;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    align-self: end;
+}
+
+/* Placeholder for the small orange icon */
+.card-icon {
+    grid-column: 3 / 4; /* Position in the third column */
+    grid-row: 1 / 2;
+    background: #ff914d;
+    width: 30px;
+    height: 20px;
+    border-radius: 4px;
+    justify-self: end;
+    align-self: center;
+}
+/* Card Number spans all 3 columns */
+.card-front .card-number-group {
+    grid-column: 1 / span 3;
+    grid-row: 2 / 3;
+}
+/* Card Holder is now LONGER, spanning all 3 columns */
+.card-front .card-holder-group {
+    grid-column: 1 / span 3; /* Span 3 columns */
+    grid-row: 3 / 4;
+}
+/* Expiration takes its place below Card Number */
+.card-front .expiration-group {
+    grid-column: 1 / span 3; /* Moved to span all columns */
+    grid-row: 4 / 5; /* Moved to a new row */
+}
+
+/* Flex for MM/YY inputs */
+.expiry-inputs {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 150px; /* Constrain the MM/YY group width */
+}
+.expiry-inputs input {
+    flex: 1;
+}
+/* ===== Card Back (Overlap and Internal Grid) ===== */
+.card-back {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    
+    /* Padding for internal space hint (top/bottom) */
+    padding: 2rem 1.5rem; 
+    
+    /* Main Grid Placement */
+    grid-area: card-back;
+    z-index: 1; 
+    width: 100%;
+    /* Overlap Adjustment (Crucial for visual effect) */
+    margin-top: 50px; /* Push the card back down */
+    margin-left: -50px; /* Pull the card back left */
+    /* Internal Grid Structure (Single column for stacking) */
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 1rem;
+}
+.dark-bar {
+    background: #333;
+    height: 40px;
+    border-radius: 5px;
+    /* Make the bar span the single column */
+    grid-column: 1 / span 1; 
+}
+/* Position CVC/CVV on top */
+.cvc-group {
+    grid-column: 1 / 2; 
+    grid-row: 2 / 3; 
+    align-items: flex-end;
+}
+/* Position Zip Code below CVC/CVV */
+.zip-group {
+    grid-column: 1 / 2; 
+    grid-row: 3 / 4; 
+    align-items: flex-end;
+}
+
+/* The existing gap property on .card-back handles the spacing between the rows */
+/* ===== Inputs, Labels, and Field Groups ===== */
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+    font-size: 0.9rem; /* Base label size */
+}
+
+/* NEW: Smaller font size for labels inside the card back */
+.card-back .field-group label {
+    font-size: 0.8rem; 
+}
+input {
+    padding: 0.6rem; /* Base input padding */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem; /* Base input font size */
+    min-width: 0; 
+}
+/* NEW: Constrained width and smaller size for CVC/CVV and Zip Code inputs */
+.cvc-group input,
+.zip-group input {
+    max-width: 150px; /* Smaller max-width for narrower boxes */
+    padding: 0.4rem; /* Smaller padding for shorter box height */
+    font-size: 0.9rem; /* Smaller text size inside the box */
+}
+
+/* ===== Button ===== */
+button[type="submit"] {
+    grid-area: submit;
+    width: 100%; 
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff914d;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 0.5rem;
+}
+button[type="submit"]:hover {
+    background-color: #ff7a26;
+}
+/* ===== Responsive Fix ===== */
+@media (max-width: 800px) {
+    .card-form {
+        /* Stack the cards vertically on smaller screens */
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas: 
+            "card-front" 
+            "card-back"
+            "submit";
+        width: 100%;
+    }
+    
+    .card-back {
+        /* Remove the overlap when stacked */
+        margin-top: 1.5rem; 
+        margin-left: 0;
+        
+        /* Ensure it maintains single-column stack on tablet */
+        grid-template-columns: 1fr;
+    }
+    .dark-bar {
+        grid-column: 1 / span 1;
+    }
+    .cvc-group, .zip-group {
+        grid-column: 1 / 2;
+        grid-row: auto;
+    }
+    
+    .card-front, .card-back {
+        width: 90%;
+    }
+}
+
+@media (max-width: 550px) {
+    .card-front {
+         grid-template-columns: 1fr;
+    }
+     .card-front .card-holder-group,
+     .card-front .expiration-group {
+        grid-column: 1 / span 1;
+        grid-row: auto;
+     }
+}
