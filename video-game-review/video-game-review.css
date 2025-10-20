@@ -1,0 +1,23 @@
+:root {
+    --primary-color: #B01307;
+    --secondary-color: #333333;
+    --accent-one: #0B8A99;
+    --accent-two: #003844;
+    --heading-font: Montserrat, sans-serif;
+    --body-font: Inter, sans-serif;
+}
+body {
+    font-family: var(--body-font);
+    color: var(--secondary-color);
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+    color: var(--primary-color);
+}
+nav a {
+    color: var(--accent-one);
+    text-decoration: none;
+}
