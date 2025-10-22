@@ -13,11 +13,156 @@ body {
     padding: 0;
     background-color: #f9f9f9;
 }
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4{
     font-family: var(--heading-font);
     color: var(--primary-color);
+    text-align: center;
 }
-nav a {
+h3 {
+    font-size: 30px;
+    margin-bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+nav {
+    background-color: var(--secondary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.nav-logo img {
+    height: 50px;
+    width: auto;
+    border-radius: 8px;
+}
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+.nav-links a {
     color: var(--accent-one);
     text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+.nav-links a:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.nav-links a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+#hero p{
+    text-align: center;
+}
+.game-card img.game-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+.game-card {
+    background-color: white;
+    border: 2px solid var(--accent-two);
+    border-radius: 12px;
+    padding: 15px;
+    margin: 15px;
+    max-width: 300px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+#top-rated, #game-review {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+select {
+    margin: 10px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+/* ---------- MOBILE LAYOUT ---------- */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+        background-color: #ffffff;
+    }
+
+    nav {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .nav-logo img {
+        height: 40px;
+        margin-bottom: 10px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-links a {
+        display: block;
+        font-size: 18px;
+        padding: 8px 0;
+    }
+
+    h1, h2, h3, h4 {
+        font-size: 1.5em;
+        line-height: 1.2;
+        padding: 0 10px;
+    }
+
+    #top-rated, #game-review {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .game-card {
+        width: 90%;
+        max-width: 350px;
+        margin: 10px auto;
+        padding: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .game-card img.game-img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    select {
+        width: 90%;
+        font-size: 16px;
+        padding: 8px;
+        margin: 10px auto;
+        display: block;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.5;
+    }
 }
