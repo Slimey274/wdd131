@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Press Start Reviews — Game reviews, ratings, and in-depth write-ups to help you decide what to play next.">
     <title>Press Start Reviews</title>
     <link rel="icon" type="image/png" href="images/pressStart-reviews.png">
     <link rel="stylesheet" href="video-game-review.css">
@@ -27,6 +28,19 @@
     </header>
     <main>
         <h2>Game Reviews</h2>
+
+        <div class="filter-row">
+            <label for="genreFilter">Filter Genres:</label>
+            <select id="genreFilter">
+                <option value="">-- Choose a Genre --</option>
+                <option value="RPG">Role Playing Game</option>
+                <option value="Farming Simulator">Farming Simulator</option>
+                <option value="Roguelike">Roguelike</option>
+                <option value="FPS">First-Person Shooter</option>
+                <option value="Horror Puzzle">Horror Puzzle</option>
+            </select>
+        </div>
+
         <div id="game-review"></div>
 
     <footer>

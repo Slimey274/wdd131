@@ -43,6 +43,33 @@ const videoGames = [
         rating: 4,
         review: "A dark and atmospheric puzzle-platformer that immerses players in a haunting world filled with eerie creatures and challenging puzzles.",
         longReview: "Little Nightmares excels in creating a tense and unsettling atmosphere through its art design and soundscape. Players take on the role of a small child navigating through a world inhabited by grotesque beings, solving puzzles and avoiding dangers along the way. The game's unique visual style and compelling narrative make it a memorable experience for fans of horror and puzzle games."
+    },
+    {
+        title: "Titanfall 2",
+        author: "Respawn Entertainment",
+        Image: "images/titanfall-2.jpg",
+        genre: "FPS",
+        rating: 5,
+        review: "A thrilling first-person shooter that combines fast-paced infantry combat with giant mech battles, delivering an exhilarating multiplayer experience.",
+        longReview: "Titanfall 2 offers a unique blend of traditional FPS gameplay with the addition of Titans, massive mechs that players can pilot. The game's single-player campaign is well-crafted, featuring innovative level design and a compelling story. The multiplayer mode is dynamic and fast-paced, encouraging players to master both on-foot combat and Titan warfare. With its fluid movement system and diverse gameplay options, Titanfall 2 stands out as one of the best shooters in recent years."
+    },
+    {
+        title: "Hades",
+        author: "Supergiant Games",
+        Image: "images/hades.jpg",
+        genre: "Roguelike",
+        rating: 4,
+        review: "An action-packed roguelike that combines fast-paced combat with a rich narrative set in the world of Greek mythology.",
+        longReview: "Hades captivates players with its engaging gameplay and compelling story. As Zagreus, the son of Hades, players must fight their way out of the Underworld using a variety of weapons and abilities. The game's roguelike mechanics ensure that each run feels fresh and exciting, while the deep narrative and character interactions add emotional depth to the experience. With its stunning art style and dynamic soundtrack, Hades is a standout title in the roguelike genre."
+    },
+    {
+        title: "R.E.P.O",
+        author: "Glitch Factory",
+        Image: "images/repo.jpg",
+        genre: "Horror Puzzle",
+        rating: 4,
+        review: "A gripping horror adventure that immerses players in a dystopian world filled with tension, mystery, and survival challenges.",
+        longReview: "R.E.P.O delivers a chilling experience through its atmospheric storytelling and immersive gameplay. Players navigate a dystopian setting where they must make strategic decisions to survive against various threats. The game's narrative is rich with lore, and the tension is heightened by its eerie sound design and visual style. R.E.P.O stands out as a must-play for fans of horror and adventure games."
     }
 ];
 
@@ -54,15 +81,7 @@ function showTopRated() {
     if (!topRatedDiv) return;
 
     const topGames = videoGames.filter(game => game.rating === 5);
-    topRatedDiv.innerHTML = topGames.map(game => `
-        <div class="game-card">
-            <img src="${game.Image}" alt="${game.title} cover" class="game-img">
-            <h4>${game.title}</h4>
-            <p><strong>Genre:</strong> ${game.genre}</p>
-            <p><strong>Rating:</strong> ⭐ ${game.rating}</p>
-            <p>${game.review}</p>
-        </div>
-    `).join("");
+    topRatedDiv.innerHTML = topGames.map(game => renderCard(game, 'h4')).join("");
 }
 
 // ---------------------------
@@ -71,26 +90,23 @@ function showTopRated() {
 function showAllReviews() {
     const reviewDiv = document.getElementById("game-review");
     if (!reviewDiv) return;
-
-    reviewDiv.innerHTML = videoGames.map(game => `
-        <div class="game-card">
-            <img src="${game.Image}" alt="${game.title} cover" class="game-img">
-            <h3>${game.title}</h3>
-            <p><strong>By:</strong> ${game.author}</p>
-            <p><strong>Genre:</strong> ${game.genre}</p>
-            <p><strong>Rating:</strong> ⭐ ${game.rating}</p>
-            <p>${game.longReview}</p>
-        </div>
-    `).join("");
+    reviewDiv.innerHTML = videoGames.map(game => renderCard(game, 'h3')).join("");
 }
 
 // ---------------------------
 // Filter by Genre
 // ---------------------------
 function setupGenreFilter() {
-    const select = document.querySelector("select");
+    // Prefer the explicit id for the filter so we only pick up the intended select
+    const select = document.getElementById("genreFilter");
+    if (!select) return; // nothing to wire up on this page
+
+    // The filter might be intended to update either the top-rated block (index)
+    // or the full reviews block (page2). Choose whichever exists on the page.
     const topRatedDiv = document.getElementById("top-rated");
-    if (!select || !topRatedDiv) return;
+    const gameReviewDiv = document.getElementById("game-review");
+    const targetDiv = topRatedDiv || gameReviewDiv;
+    if (!targetDiv) return;
 
     select.addEventListener("change", function() {
         const selectedGenre = select.value;
@@ -98,16 +114,39 @@ function setupGenreFilter() {
             game.genre.toLowerCase().includes(selectedGenre.toLowerCase())
         );
 
-        topRatedDiv.innerHTML = filteredGames.map(game => `
-            <div class="game-card">
-                <img src="${game.Image}" alt="${game.title} cover" class="game-img">
-                <h4>${game.title}</h4>
-                <p><strong>Genre:</strong> ${game.genre}</p>
-                <p><strong>Rating:</strong> ⭐ ${game.rating}</p>
-                <p>${game.review}</p>
-            </div>
-        `).join("");
+        // Use renderCard to produce the flip-card for both containers
+        if (targetDiv.id === "top-rated") {
+            targetDiv.innerHTML = filteredGames.map(game => renderCard(game, 'h4')).join("");
+        } else {
+            targetDiv.innerHTML = filteredGames.map(game => renderCard(game, 'h3')).join("");
+        }
     });
+}
+
+// Helper: render a flip card. headingTag is 'h3' or 'h4' for sizing consistency
+function renderCard(game, headingTag = 'h3') {
+    // ensure safe HTML for values if needed; for this small project we'll trust contents
+    return `
+        <div class="game-card" tabindex="0">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="${game.Image}" alt="${game.title} cover" class="game-img">
+                    <${headingTag}>${game.title}</${headingTag}>
+                    <p><strong>By:</strong> ${game.author}</p>
+                    <p><strong>Genre:</strong> ${game.genre}</p>
+                    <p><strong>Rating:</strong> ⭐ ${game.rating}</p>
+                    <p class="short-review">${game.review}</p>
+                </div>
+                <div class="card-back">
+                    <${headingTag}>${game.title}</${headingTag}>
+                    <p><strong>By:</strong> ${game.author}</p>
+                    <p><strong>Genre:</strong> ${game.genre}</p>
+                    <p><strong>Rating:</strong> ⭐ ${game.rating}</p>
+                    <p class="long-review">${game.longReview}</p>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 // ---------------------------
